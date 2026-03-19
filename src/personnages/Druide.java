@@ -29,7 +29,7 @@ public class Druide {
 	public void booster(Gaulois gauloi) {
 		
 		if(contientPotion(chaudron)) {
-			if(gauloi.getNom() == "Obélix") {
+			if(gauloi.getNom().equals("Obélix")) {
 				parler("Non," +  gauloi.getNom()+ "! Non, et tu le sais très bien!");
 			}
 			else {
