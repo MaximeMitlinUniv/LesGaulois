@@ -9,6 +9,11 @@ public class Druide {
 
 	Chaudrons chaudron = new Chaudrons();
 	
+	public Druide(String nom, int force) {
+		this.force = force;
+		this.nom = nom;
+	}
+
 	private String prendreParole() {
 		return "Le druide " + nom + " : ";
 	}
@@ -43,4 +48,5 @@ public class Druide {
 			parler("Désolé " + gauloi.getNom() +" il n'y a plus une seule goutte de potion.");
 		}
 	}
+
 }

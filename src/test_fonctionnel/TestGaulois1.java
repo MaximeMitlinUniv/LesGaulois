@@ -9,7 +9,6 @@ import objets.Chaudrons;
 public class TestGaulois1 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		Gaulois asterix = new Gaulois("Astérix", 8);
         Gaulois obelix = new Gaulois("Obélix", 16);
