@@ -1,14 +1,20 @@
 package personnages;
 
+import objets.Equipement;
+
 public class Romains {
 	private String nom;
 	private int force;
+	
+	private Equipement[] equipement = new Equipement[2];
+	private int nbEquipement = 0;
 	
 	public Romains(String nom, int force) {
 		this.nom = nom;
 		this.force = force;
 		isInvariantVerified(force);
 	}
+	
 	private boolean isInvariantVerified(int force) {
 		assert(force > 0);
 		return force > 0;
@@ -22,6 +28,29 @@ public class Romains {
 	private boolean isPostCoditionVerified(int ancienneForce, int nouvelleForce) {
 		assert(ancienneForce > nouvelleForce);
 		return ancienneForce > nouvelleForce;
+	}
+	
+	public void sEquiper(Equipement equipement) {
+		switch(nbEquipement) {
+		case 0:
+			System.out.println("Le romain " + nom + " s'équipe avec un " + equipement);
+			this.equipement[nbEquipement] = equipement;
+			nbEquipement++;
+			break;
+		case 1:
+			if (this.equipement[0] == equipement) {
+				System.out.println("Le romain " + nom + " posséde déjà un " + equipement);
+			}
+			else {
+				System.out.println("Le romain " + nom + " s'équipe avec un " + equipement);
+				this.equipement[nbEquipement] = equipement;
+				nbEquipement++;
+			}
+			break;
+		case 2:
+			System.out.println("Le romain " + nom + " est déjà bien protégé");
+			break;
+		}
 	}
 	
 	public String getNom() {
@@ -51,5 +80,15 @@ public class Romains {
 	
 	public static void main(String args[]) {
 		Romains minus = new Romains("Minus", 6);
+		Equipement casque = Equipement.CASQUE;
+		Equipement bouclier = Equipement.BOUCLIER;
+
+		System.out.println(Equipement.BOUCLIER);
+		System.out.println(Equipement.CASQUE);
+		
+		minus.sEquiper(casque);
+		minus.sEquiper(casque);
+		minus.sEquiper(bouclier);
+		minus.sEquiper(casque);
 	}
 }
