@@ -31,7 +31,7 @@ public class Village {
 	}
 	
 	public Gaulois trouverVillageois(int numVillageois) {
-		if(numVillageois > nbVillageois) {
+		if(numVillageois <= 0 || numVillageois > nbVillageois) {
 			System.out.print("Il n'y a pas autant d'habitants dans notre village! \n");
 			return null;
 		}
@@ -53,20 +53,20 @@ public class Village {
 	public static void main(String[] args) {
 			Gaulois abraracoucrix = new Gaulois("Abraracoucrix", 6);
 			Village village = new Village("Village des Irréductibles", abraracoucrix, 30);
-			village.trouverVillageois(30);
 			
 			Gaulois asterix = new Gaulois("Astérix", 8);
+			Gaulois obelix = new Gaulois("Obelix", 25);
+			Gaulois doublepolémix  = new Gaulois("Doublepolémix", 4);
 			village.ajouterVillageois(asterix);
+			village.ajouterVillageois(obelix);
+			village.ajouterVillageois(doublepolémix);
+			village.trouverVillageois(30);
 			
 			Gaulois gaulois = village.trouverVillageois(1);
 			System.out.println(gaulois);
-			gaulois = village.trouverVillageois(2);
-			System.out.println(gaulois);
-			
 			
 			village.afficherVillageois();
-			
-			
+			gaulois.sePresenter();
 	}
 	
 }

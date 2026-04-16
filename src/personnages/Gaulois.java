@@ -55,13 +55,14 @@ public class Gaulois {
 			System.out.println("\"Bonjour, je m'appelle " + nom + ". Je suis le chef le village: " + nomVillage + "\"");
 		}
 		else {
-			int i = 0;
-			boolean DansVillage = true;
+			int i = 1;
+			boolean DansVillage = false;
 			while(village.trouverVillageois(i) != null) {
 				if(village.trouverVillageois(i) == this) {
 					prendreParole();
 					System.out.println("\"Bonjour, je m'appelle " + nom + ". J'habite le village: " + nomVillage + "\"");
-					DansVillage = false;
+					DansVillage = true;
+					break;
 				}
 				i++;
 			}
