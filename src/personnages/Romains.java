@@ -12,7 +12,7 @@ public class Romains {
 	public Romains(String nom, int force) {
 		this.nom = nom;
 		this.force = force;
-		isInvariantVerified(force);
+		assert isInvariantVerified(force);
 	}
 	
 	private boolean isInvariantVerified(int force) {
