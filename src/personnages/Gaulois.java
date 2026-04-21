@@ -1,12 +1,15 @@
 package personnages;
 
 import village_gaulois.Village;
+import objets.Equipement;
 
 public class Gaulois {
 	private String nom;
-	private int force;
 	private int effetPotion = 1;
 	private Village village;
+	private int force;
+	private int nbTrophees;
+	
 	
 	public Gaulois(String nom, int force) {
 		this.force = force;
@@ -16,31 +19,37 @@ public class Gaulois {
 	public String getNom() {
 		return nom;
 	}
+
 	
 	public void parler(String texte) {
 		System.out.println(prendreParole() + "\"" + texte + "\"");
 	}
 	
+
+	
 	private String prendreParole() {
-		return "Les gaulois " + nom + " : ";
-	}
+		return "Le gaulois " + nom + " : ";
+		}
 	
-	
-	@Override
-	public String toString() {
-		return nom;
-	}
 	
 	public void frapper(Romains romain) {
-		String nomRomain = romain.getNom();
-		System.out.println(nom + "envoie un grand coup dans la machoire de " + nomRomain);
-		int forceCoup = force/3;
-		romain.recevoirCoup(forceCoup);
-	}
+		Equipement[] trophees;
+		System.out.println(nom + " envoie un grand coup dans la mâchoire de "
+		+ romain.getNom());
+		trophees = romain.recevoirCoup((force / 3) * effetPotion);
+		effetPotion--;
+		if (effetPotion < 1) {
+		effetPotion = 1;
+		}
+		for (int i = 0; trophees != null && i < trophees.length; i++,
+		nbTrophees++) {
+		trophees[nbTrophees] = trophees[i];
+		}
+
+		}
 	
-	public int boirePotion(int forcePotion) {
-		forcePotion = this.effetPotion;
-		return forcePotion;
+	public int boirePotion() {
+		return this.effetPotion;
 	}
 	
 	public void setVillage(Village village) {
@@ -50,25 +59,26 @@ public class Gaulois {
 	public void sePresenter() {
 		Gaulois chef = village.getChef();
 		String nomVillage = village.getNom();
+		String bonjour = "\"Bonjour, je m'appelle ";
 		if (this == chef) {
 			prendreParole();
-			System.out.println("\"Bonjour, je m'appelle " + nom + ". Je suis le chef le village: " + nomVillage + "\"");
+			System.out.println(bonjour + nom + ". Je suis le chef le village: " + nomVillage + "\"");
 		}
 		else {
 			int i = 1;
-			boolean DansVillage = false;
+			boolean dansvillage = false;
 			while(village.trouverVillageois(i) != null) {
 				if(village.trouverVillageois(i) == this) {
 					prendreParole();
-					System.out.println("\"Bonjour, je m'appelle " + nom + ". J'habite le village: " + nomVillage + "\"");
-					DansVillage = true;
+					System.out.println(bonjour + nom + ". J'habite le village: " + nomVillage + "\"");
+					dansvillage = true;
 					break;
 				}
 				i++;
 			}
-		if(!DansVillage) {
+		if(!dansvillage) {
 			prendreParole();
-			System.out.println("\"Bonjour, je m'appelle " + nom + ". Je voyage de villages en villages");
+			System.out.println(bonjour + nom + ". Je voyage de villages en villages");
 		}
 		}
 	}

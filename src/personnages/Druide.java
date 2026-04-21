@@ -18,7 +18,7 @@ public class Druide {
 		return "Le druide " + nom + " : ";
 	}
 	
-	private void parler(String texte) {
+	public void parler(String texte) {
 		System.out.println(prendreParole() + "\"" + texte + "\"");
 	}
 	
@@ -39,7 +39,7 @@ public class Druide {
 			}
 			else {
 				int forcePotion = chaudron.prendreLouche();
-				gauloi.boirePotion(forcePotion);
+				gauloi.boirePotion();
 				parler("Tiens " + gauloi.getNom() + " un peu de potion magique.");
 			}
 				

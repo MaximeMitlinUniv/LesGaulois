@@ -6,18 +6,16 @@ public class Romains {
 	private String nom;
 	private int force;
 	
-	private Equipement[] equipement = new Equipement[2];
+	
+	private Equipement[] equipements = new Equipement[2];
 	private int nbEquipement = 0;
 	
 	public Romains(String nom, int force) {
 		this.nom = nom;
 		this.force = force;
-		assert isInvariantVerified(force);
-	}
-	
-	private boolean isInvariantVerified(int force) {
-		assert(force > 0);
-		return force > 0;
+		if (force < 0) {
+		    throw new IllegalArgumentException("Invalid force: " + force);
+	  }
 	}
 	
 	private boolean isPreCoditionVerified(int forceCoup) {
@@ -30,27 +28,36 @@ public class Romains {
 		return ancienneForce > nouvelleForce;
 	}
 	
+
+	public int getForce() {
+		return force;
+	}
+	
 	public void sEquiper(Equipement equipement) {
+		String lerom = "Le romain ";
 		switch(nbEquipement) {
 		case 0:
-			System.out.println("Le romain " + nom + " s'équipe avec un " + equipement);
-			this.equipement[nbEquipement] = equipement;
+			System.out.println( lerom + nom + " s'équipe avec un " + equipement);
+			this.equipements[nbEquipement] = equipement;
 			nbEquipement++;
 			break;
 		case 1:
-			if (this.equipement[0] == equipement) {
-				System.out.println("Le romain " + nom + " posséde déjà un " + equipement);
+			if (this.equipements[0] == equipement) {
+				System.out.println(lerom + nom + " posséde déjà un " + equipement);
 			}
 			else {
-				System.out.println("Le romain " + nom + " s'équipe avec un " + equipement);
-				this.equipement[nbEquipement] = equipement;
+				System.out.println(lerom + nom + " s'équipe avec un " + equipement);
+				this.equipements[nbEquipement] = equipement;
 				nbEquipement++;
 			}
 			break;
 		case 2:
-			System.out.println("Le romain " + nom + " est déjà bien protégé");
+			System.out.println(lerom + nom + " est déjà bien protégé");
+			break;
+		default:
 			break;
 		}
+		
 	}
 	
 	public String getNom() {
@@ -63,22 +70,61 @@ public class Romains {
 		return "Le romain " + nom + " : ";
 	}
 	
-	public void recevoirCoup(int forceCoup) {
-		isPreCoditionVerified(forceCoup);
-		int ancienneForce = this.force;
-		this.force = this.force - forceCoup;
-		int nouvelleForce = this.force;
-		if(this.force < 1) {
-			parler("J'abondonne !");
+	public Equipement[] recevoirCoup(int forceCoup) {
+		Equipement[] equipementEjecte = null;
+		forceCoup = calculResistanceEquipement(forceCoup);
+		force -= forceCoup;
+		if (force == 0) {
+
+			parler("Aïe");
 		}
 		else {
-			parler("Aie");
+			equipementEjecte = ejecterEquipement();
+			parler("J'abandonne...");
 		}
-		isInvariantVerified(force);
-		isPostCoditionVerified(ancienneForce, nouvelleForce);
-	}
+		return equipementEjecte;
+		}
 	
-	public static void main(String args[]) {
+	private int calculResistanceEquipement(int forceCoup) {
+  String texte;
+		texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
+		int resistanceEquipement = 0;
+		if (nbEquipement != 0) {
+		
+		for (int i = 0; i < nbEquipement;) {
+		if ((equipements[i] != null && equipements[i].equals(Equipement.BOUCLIER))) {
+		resistanceEquipement += 8;
+		} else {
+		System.out.println("Equipement casque");
+		resistanceEquipement += 5;
+		}
+		i++;
+		}
+		texte += resistanceEquipement + "!";
+		}
+		parler(texte);
+		forceCoup -= resistanceEquipement;
+		return forceCoup;
+		}
+	
+		private Equipement[] ejecterEquipement() {
+		Equipement[] equipementEjecte = new Equipement[nbEquipement];
+		System.out.println("L'équipement de " + toString() + " s'envole sous la force du coup.");
+
+		int nbEquipementEjecte = 0;
+		for (int i = 0; i < nbEquipement; i++) {
+		if (equipements[i] == null) {
+
+		} else {
+		equipementEjecte[nbEquipementEjecte] = equipements[i];
+		nbEquipementEjecte++;
+			equipements[i] = null;
+		}
+		}
+			return equipementEjecte;
+		}
+	
+	public static void main(String[] args) {
 		Romains minus = new Romains("Minus", 6);
 		Equipement casque = Equipement.CASQUE;
 		Equipement bouclier = Equipement.BOUCLIER;
