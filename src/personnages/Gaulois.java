@@ -33,20 +33,20 @@ public class Gaulois {
 	
 	
 	public void frapper(Romains romain) {
-		Equipement[] trophees;
 		System.out.println(nom + " envoie un grand coup dans la mâchoire de "
 		+ romain.getNom());
-		trophees = romain.recevoirCoup((force / 3) * effetPotion);
+		Equipement[] tropheesBataille = romain.recevoirCoup((force / 3) * effetPotion);
 		effetPotion--;
 		if (effetPotion < 1) {
 		effetPotion = 1;
 		}
-		for (int i = 0; trophees != null && i < trophees.length; i++,
+		for (int i = 0; tropheesBataille != null && i < tropheesBataille.length; i++,
 		nbTrophees++) {
-		trophees[nbTrophees] = trophees[i];
+			tropheesBataille[nbTrophees] = tropheesBataille[i];
 		}
 
 		}
+
 	
 	public int boirePotion() {
 		return this.effetPotion;

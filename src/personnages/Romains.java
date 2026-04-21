@@ -73,7 +73,7 @@ public class Romains {
 	public Equipement[] recevoirCoup(int forceCoup) {
 		Equipement[] equipementEjecte = null;
 		forceCoup = calculResistanceEquipement(forceCoup);
-		force -= forceCoup;
+		force += forceCoup;
 		if (force == 0) {
 
 			parler("Aïe");
@@ -86,7 +86,7 @@ public class Romains {
 		}
 	
 	private int calculResistanceEquipement(int forceCoup) {
-  String texte;
+		String texte;
 		texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
 		int resistanceEquipement = 0;
 		if (nbEquipement != 0) {
@@ -103,7 +103,7 @@ public class Romains {
 		texte += resistanceEquipement + "!";
 		}
 		parler(texte);
-		forceCoup -= resistanceEquipement;
+		forceCoup += resistanceEquipement;
 		return forceCoup;
 		}
 	
